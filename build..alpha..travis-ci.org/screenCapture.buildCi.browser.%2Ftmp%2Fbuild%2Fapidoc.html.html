@@ -56,6 +56,15 @@
 
         <li>
 
+            <a class="apidocElementLiA" href="#apidoc.element.serve-index.serve-index">
+            function <span class="apidocSignatureSpan"></span>serve-index
+            <span class="apidocSignatureSpan">(root, options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
             <a class="apidocElementLiA" href="#apidoc.element.serve-index.html">
             function <span class="apidocSignatureSpan">serve-index.</span>html
             <span class="apidocSignatureSpan">(req, res, files, next, dir, showUp, icons, path, view, template, stylesheet)</span>
@@ -87,6 +96,103 @@
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.serve-index" id="apidoc.module.serve-index">module serve-index</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.serve-index.serve-index" id="apidoc.element.serve-index.serve-index">
+        function <span class="apidocSignatureSpan"></span>serve-index
+        <span class="apidocSignatureSpan">(root, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function serveIndex(root, options) {
+  var opts = options || {};
+
+  // root required
+  if (!root) {
+    throw new TypeError('serveIndex() root path required');
+  }
+
+  // resolve root to absolute and normalize
+  var rootPath = normalize(resolve(root) + sep);
+
+  var filter = opts.filter;
+  var hidden = opts.hidden;
+  var icons = opts.icons;
+  var stylesheet = opts.stylesheet || defaultStylesheet;
+  var template = opts.template || defaultTemplate;
+  var view = opts.view || 'tiles';
+
+  return function (req, res, next) {
+    if (req.method !== 'GET' &amp;&amp; req.method !== 'HEAD') {
+      res.statusCode = 'OPTIONS' === req.method ? 200 : 405;
+      res.setHeader('Allow', 'GET, HEAD, OPTIONS');
+      res.setHeader('Content-Length', '0');
+      res.end();
+      return;
+    }
+
+    // parse URLs
+    var url = parseUrl(req);
+    var originalUrl = parseUrl.original(req);
+    var dir = decodeURIComponent(url.pathname);
+    var originalDir = decodeURIComponent(originalUrl.pathname);
+
+    // join / normalize from root dir
+    var path = normalize(join(rootPath, dir));
+
+    // null byte(s), bad request
+    if (~path.indexOf('\0')) return next(createError(400));
+
+    // malicious path
+    if ((path + sep).substr(0, rootPath.length) !== rootPath) {
+      debug('malicious path "%s"', path);
+      return next(createError(403));
+    }
+
+    // determine ".." display
+    var showUp = normalize(resolve(path) + sep) !== rootPath;
+
+    // check if we have a directory
+    debug('stat "%s"', path);
+    fs.stat(path, function(err, stat){
+      if (err &amp;&amp; err.code === 'ENOENT') {
+        return next();
+      }
+
+      if (err) {
+        err.status = err.code === 'ENAMETOOLONG'
+          ? 414
+          : 500;
+        return next(err);
+      }
+
+      if (!stat.isDirectory()) return next();
+
+      // fetch files
+      debug('readdir "%s"', path);
+      fs.readdir(path, function(err, files){
+        if (err) return next(err);
+        if (!hidden) files = removeHidden(files);
+        if (filter) files = files.filter(function(filename, index, list) {
+          return filter(filename, index, list, path);
+        });
+        files.sort();
+
+        // content-negotiation
+        var accept = accepts(req);
+        var type = accept.type(mediaTypes);
+
+        // not acceptable
+        if (!type) return next(createError(406));
+        serveIndex[mediaType[type]](req, res, files, next, originalDir, showUp, icons, path, view, template, stylesheet);
+      });
+    });
+  };
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
 
 
     <h2>

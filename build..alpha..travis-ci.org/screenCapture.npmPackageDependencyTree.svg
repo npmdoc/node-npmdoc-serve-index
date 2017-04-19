@@ -1,20 +1,22 @@
-<svg height="270" width="720" xmlns="http://www.w3.org/2000/svg">
-<rect height="270" fill="#555" width="720"></rect>
+<svg height="302" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect height="302" fill="#555" width="720"></rect>
 <text fill="#7f7" font-family="Courier New" font-size="12" xml:space="preserve">
-<tspan x="10" y="26">1 megabytes</tspan>
-<tspan x="10" y="42">└─┬ serve-index@1.8.0 </tspan>
-<tspan x="10" y="58">  ├─┬ accepts@1.3.3 </tspan>
-<tspan x="10" y="74">  │ └── negotiator@0.6.1 </tspan>
-<tspan x="10" y="90">  ├── batch@0.5.3 </tspan>
-<tspan x="10" y="106">  ├─┬ debug@2.2.0 </tspan>
-<tspan x="10" y="122">  │ └── ms@0.7.1 </tspan>
-<tspan x="10" y="138">  ├── escape-html@1.0.3 </tspan>
-<tspan x="10" y="154">  ├─┬ http-errors@1.5.1 </tspan>
-<tspan x="10" y="170">  │ ├── inherits@2.0.3 </tspan>
-<tspan x="10" y="186">  │ ├── setprototypeof@1.0.2 </tspan>
-<tspan x="10" y="202">  │ └── statuses@1.3.1 </tspan>
-<tspan x="10" y="218">  ├─┬ mime-types@2.1.15 </tspan>
-<tspan x="10" y="234">  │ └── mime-db@1.27.0 </tspan>
-<tspan x="10" y="250">  └── parseurl@1.3.1</tspan>
+<tspan x="10" y="26">1 megabytes installed</tspan>
+<tspan x="10" y="42"></tspan>
+<tspan x="10" y="58">node_modules</tspan>
+<tspan x="10" y="74">└─┬ serve-index@1.8.0 </tspan>
+<tspan x="10" y="90">  ├─┬ accepts@1.3.3 </tspan>
+<tspan x="10" y="106">  │ └── negotiator@0.6.1 </tspan>
+<tspan x="10" y="122">  ├── batch@0.5.3 </tspan>
+<tspan x="10" y="138">  ├─┬ debug@2.2.0 </tspan>
+<tspan x="10" y="154">  │ └── ms@0.7.1 </tspan>
+<tspan x="10" y="170">  ├── escape-html@1.0.3 </tspan>
+<tspan x="10" y="186">  ├─┬ http-errors@1.5.1 </tspan>
+<tspan x="10" y="202">  │ ├── inherits@2.0.3 </tspan>
+<tspan x="10" y="218">  │ ├── setprototypeof@1.0.2 </tspan>
+<tspan x="10" y="234">  │ └── statuses@1.3.1 </tspan>
+<tspan x="10" y="250">  ├─┬ mime-types@2.1.15 </tspan>
+<tspan x="10" y="266">  │ └── mime-db@1.27.0 </tspan>
+<tspan x="10" y="282">  └── parseurl@1.3.1</tspan>
 </text>
 </svg>
